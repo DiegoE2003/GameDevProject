@@ -1,48 +1,133 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [Header("Prefabs")]
-    [SerializeField] GameObject JanissaryNPC;
+    [Header("Prefabs Information")]
+    [SerializeField] GameObject Player;
+    [SerializeField] GameObject npc;
+    [Header("Spawn Time Information")]
     [SerializeField] float spawnTime = 2.0f;
-    //[SerializeField] List<int> maxEnemyWave = new List<int>();
+    [SerializeField] int randNumX;
+    [Header("Enemy Wave Information")]
+    [SerializeField] List<int> maxEnemyWave = new List<int>(3);
+    [SerializeField] int killCounter;
+    [Header("List of ai's")]
+    [SerializeField] List<GameObject> enemies = new List<GameObject>();
+    [SerializeField] List<string> enemyType = new List<string>();
+    [Header("Physics Stuff")]
+    [SerializeField] float separationDistance = 1.0f; // Minimum desired distance between ai's
+    [SerializeField] Vector3 separationForce; 
+
     // Start is called before the first frame update
     void Start()
     {
-        //initalizeWaves();
+        initalizeWaves();
         spawnNPCObjects();
     }
-    // Update is called once per frame
-    void Update()
+    void Update() //***Used Chatgpt***
     {
-        
+        foreach(GameObject ai in returnEnemies())
+        {      
+            if (ai != null) // Ensure the AI is not null before proceeding
+            {
+                enemyAI aiScript = ai.GetComponent<enemyAI>();
+                if (aiScript != null)
+                {
+                    bool temp = aiScript.GetComponent<NPCinfo>().returnDeath(); 
+                    if (temp)  // If NPC is dead
+                    {
+                        Destroy(ai, 3.0f); // Destroy the GameObject directly, with a delay if necessary
+                        killCounter++;
+                        Debug.Log("ai is dead! killCounter: " + killCounter);
+                        removeEnemyFromList(ai);
+                    }
+                    else
+                    {
+                        aiScript.updatePlayerPosition(Player.transform.position);
+                        
+                        Vector3 separationForce = Vector3.zero;
+
+                        foreach (GameObject otherAI in returnEnemies()){
+                            if (otherAI != ai)  // Skip itself
+                            {
+                                float distance = Vector3.Distance(ai.transform.position, otherAI.transform.position);
+
+                                if (distance < separationDistance)
+                                {
+                                    Vector3 awayFromNeighbor = ai.transform.position - otherAI.transform.position;
+                                    separationForce += awayFromNeighbor.normalized / distance;
+                                }
+                            }
+                        }
+                        // Apply movement with separation force for the current AI
+                        aiScript.Move(separationForce.normalized);
+                    }
+                }
+                else{
+                    Debug.Log("Ai does not exist");
+                    continue;
+                }
+            }
+        }
     }
-    // private void initalizeWaves(){
-    //     maxEnemyWave.Add(10);
-    // }
+    private void initalizeWaves(){
+        maxEnemyWave.Add(5);
+        maxEnemyWave.Add(10);
+        maxEnemyWave.Add(15);
+    }
     private void spawnNPC(){
-            Vector3 spawnPos = new Vector3(-8,Random.Range(-3f,3f),-0.52f);
-            GameObject newEnemy = Instantiate(JanissaryNPC,spawnPos, Quaternion.identity);
-            newEnemy.transform.localScale = new Vector3(4.6f, 4.5f, 1f);
+        int randomInt = Random.Range(0, 2);  // Generates 0 or 1 (upper bound is exclusive)
+        if(randomInt == 0){
+            randNumX = -15;
+            Vector3 spawnPos = new Vector3(randNumX,Random.Range(-3f,3f),0);
+            GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
+            enemies.Add(newEnemy); //adding new enemy clone to list
+            newEnemy.GetComponent<enemyAI>().setPlayer(Player);
+        }
+        if(randomInt == 1){
+            randNumX = 15;
+            Vector3 spawnPos = new Vector3(randNumX,Random.Range(-3f,3f),0);
+            GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
+            newEnemy.transform.Rotate(0,180,0);
+            enemies.Add(newEnemy); //adding new enemy clone to list
+            newEnemy.GetComponent<enemyAI>().setPlayer(Player);
+        }
     }
      void spawnNPCObjects(){
         StartCoroutine(SpawnNPCRoutine());
         IEnumerator SpawnNPCRoutine(){
         int counter = 0;
         int i = 0;
-        while(i < 1){
+        while(i < maxEnemyWave.Count){
             counter = 0;
-                while (counter < 5) 
+                while (counter < maxEnemyWave[i]) 
                 {
-                    //Debug.Log("Spawning Enemy");
                     yield return new WaitForSeconds(spawnTime);
                     spawnNPC();
                     counter++;
                 }
+            yield return new WaitForSeconds(0.20f);
             i++;
             }
         }
+    }
+     public List<GameObject> returnEnemies(){
+        return enemies;
+    }
+    public void removeEnemyFromList(GameObject currentEnemy){
+
+        for(int i = 0; i < enemies.Count; i++){
+            Debug.Log("iterating over enemies list: i #: " + i);
+            if(currentEnemy == enemies[i]){
+                Debug.Log("Removing object from list");
+                enemies.RemoveAt(i);
+                break;
+            }
+        } 
     }
 }

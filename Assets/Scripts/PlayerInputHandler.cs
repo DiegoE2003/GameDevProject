@@ -6,16 +6,12 @@ using UnityEngine.Timeline;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    [Header("Info")]
+    [Header("Player and Animation References")]
     [SerializeField] PlayerInfo Player;
-    [SerializeField] float zRotation = 180;
     [Header("Animation Information")]
     [SerializeField] AnimationStateChanger animation;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+     [Header("Rotation Settings")]
+     [SerializeField] float zRotation = 180;
 
     // Update is called once per frame
     void Update()
@@ -35,9 +31,7 @@ public class PlayerInputHandler : MonoBehaviour
             movement+=new Vector3(1,0,0);
         }
         if(Input.GetMouseButtonDown(0)){
-            //Debug.Log("Pressed Space key!");
             animation.ChangeAnimationState("Attack State");
-            //animation.ChangeAnimationState("Idle");
         }
         if(Input.GetKeyDown(KeyCode.F)){
             zRotation = Player.transform.rotation.y;

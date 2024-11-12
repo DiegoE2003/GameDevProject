@@ -10,10 +10,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Land
   - 
   - 
   - 
@@ -40,6 +40,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Land
+    uniqueID: 1729301875
+    locked: 0
+  - name: sword
+    uniqueID: 65630771
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3106082713
+    locked: 0
+  - name: Player
+    uniqueID: 3352730737
     locked: 0

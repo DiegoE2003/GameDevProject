@@ -9,17 +9,14 @@ public class AnimationStateChanger : MonoBehaviour
     void Start(){
         ChangeAnimationState("Idle");
     }
-
-    public void ChangeAnimationState(string newState, float speed = 1){
+public void ChangeAnimationState(string newState, float speed = 1){
         animator.speed = speed;
         
         if(currentState == newState){
-            //Debug.Log("Bruh");
             animator.Play("Idle");
             animator.Play(newState,0,0.0f);
         }
         currentState=newState;
-        //Debug.Log(currentState + "Playing new Animation");
         animator.Play(currentState);
         
     }
