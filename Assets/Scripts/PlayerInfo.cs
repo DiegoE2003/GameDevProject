@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
-    [Header("Info")]
+    [Header("Player health & speed Information")]
     [SerializeField] float Health;
     [SerializeField] float speed = 5.0f;
     public void Move(Vector3 movement){

@@ -10,18 +10,21 @@ public class Spawner : MonoBehaviour
     [Header("Prefabs Information")]
     [SerializeField] GameObject Player;
     [SerializeField] GameObject npc;
+    [SerializeField] HealthBar slider; //***HEALTH BAR***
     [Header("Spawn Time Information")]
     [SerializeField] float spawnTime = 2.0f;
     [SerializeField] int randNumX;
     [Header("Enemy Wave Information")]
     [SerializeField] List<int> maxEnemyWave = new List<int>(3);
-    [SerializeField] int killCounter;
     [Header("List of ai's")]
     [SerializeField] List<GameObject> enemies = new List<GameObject>();
-    [SerializeField] List<string> enemyType = new List<string>();
+    [SerializeField] List<string> enemyType = new List<string>(); //if there's time include different enemy types
     [Header("Physics Stuff")]
     [SerializeField] float separationDistance = 1.0f; // Minimum desired distance between ai's
     [SerializeField] Vector3 separationForce; 
+    [Header("Kill Counter Information")]
+    [SerializeField] int killCounter;
+    [SerializeField] KillCounter kc;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,7 @@ public class Spawner : MonoBehaviour
                     {
                         Destroy(ai, 3.0f); // Destroy the GameObject directly, with a delay if necessary
                         killCounter++;
+                        kc.updateKillCounter(killCounter);
                         Debug.Log("ai is dead! killCounter: " + killCounter);
                         removeEnemyFromList(ai);
                     }
@@ -81,7 +85,7 @@ public class Spawner : MonoBehaviour
         maxEnemyWave.Add(15);
     }
     private void spawnNPC(){
-        int randomInt = Random.Range(0, 2);  // Generates 0 or 1 (upper bound is exclusive)
+        int randomInt = Random.Range(0, 4);  // Generates 0 or 3 so enemy can spawn all around player in random places
         if(randomInt == 0){
             randNumX = -15;
             Vector3 spawnPos = new Vector3(randNumX,Random.Range(-3f,3f),0);
@@ -97,13 +101,29 @@ public class Spawner : MonoBehaviour
             enemies.Add(newEnemy); //adding new enemy clone to list
             newEnemy.GetComponent<enemyAI>().setPlayer(Player);
         }
+         if(randomInt == 2){
+            randNumX = 7;
+            Vector3 spawnPos = new Vector3(Random.Range(-11f,11f),randNumX,0);
+            GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
+            newEnemy.transform.Rotate(0,180,0);
+            enemies.Add(newEnemy); //adding new enemy clone to list
+            newEnemy.GetComponent<enemyAI>().setPlayer(Player);
+        }
+         if(randomInt == 3){
+            randNumX = -7;
+            Vector3 spawnPos = new Vector3(Random.Range(-11f,11f),randNumX,0);
+            GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
+            newEnemy.transform.Rotate(0,180,0);
+            enemies.Add(newEnemy); //adding new enemy clone to list
+            newEnemy.GetComponent<enemyAI>().setPlayer(Player);
+        }
     }
      void spawnNPCObjects(){
         StartCoroutine(SpawnNPCRoutine());
         IEnumerator SpawnNPCRoutine(){
         int counter = 0;
         int i = 0;
-        while(i < maxEnemyWave.Count){
+        while(i < 3){
             counter = 0;
                 while (counter < maxEnemyWave[i]) 
                 {

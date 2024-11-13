@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -311,6 +312,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b4ea3b5aae928459bd3d9eee84f03e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 2027755573}
 --- !u!1 &1242090707
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,8 +410,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -458,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b695ea19cb1e50743bcf6c2520df0ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  text: {fileID: 1242090709}
 --- !u!1 &1566378607
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +665,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10746bd84cd52e44baff11f6959b0d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2027755573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 607649591083763596, guid: acac1fa2162527740824ea3a7db84ef9, type: 3}
+  m_PrefabInstance: {fileID: 3683781940611517351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &125840415823017230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -736,6 +755,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -610904142712495974, guid: 3b807f5baaabe3544837fea8798dc145, type: 3}
+      propertyPath: kc
+      value: 
+      objectReference: {fileID: 1242090711}
     - target: {fileID: -610904142712495974, guid: 3b807f5baaabe3544837fea8798dc145, type: 3}
       propertyPath: npc
       value: 

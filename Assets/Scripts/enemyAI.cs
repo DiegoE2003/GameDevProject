@@ -71,7 +71,7 @@ public class enemyAI : MonoBehaviour
         transform.position += new_movement * npc.getNPCspeed() * Time.deltaTime;
 
         // Rotate based on the direction of movement in the x-axis ***Chatgpt***
-        if (new_movement.x > 0) // Moving in +x directiont
+        if (new_movement.x > 0) // Moving in +x direction
         {
             transform.rotation = Quaternion.Euler(0, 0, 0); // Face right
         }

@@ -6,14 +6,8 @@ using UnityEngine;
 public class KillCounter : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
-    {
+    public void updateKillCounter(int counter){
+        text.text = "Kill Counter: " + counter.ToString();
     }
 }

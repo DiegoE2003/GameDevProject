@@ -16,7 +16,10 @@ public class NPCinfo : MonoBehaviour
     [SerializeField] float NPCspeed = 5.0f; //how fast the NPC moves across the field
     [Header("Animation Information")]
     //[SerializeField] AnimationStateChangerNPC animation;
+    [Header("HealthBar Information")]
+    [SerializeField] HealthBar bar;
     [SerializeField] enemyAI ai;
+    [SerializeField] double value = 0.5;
     void Start(){
         currHealth = totalHealth;
     }
@@ -41,8 +44,8 @@ public class NPCinfo : MonoBehaviour
     }
     private void TakeDamage(int damage){
        
-        currHealth -= 50;
-
+        currHealth -= damage;
+        bar.updateHealthBar(value);
         if(currHealth <= 0 && !isDead){
             Die();
         }
