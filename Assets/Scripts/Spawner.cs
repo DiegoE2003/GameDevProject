@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     [Header("Prefabs Information")]
     [SerializeField] GameObject Player;
     [SerializeField] GameObject npc;
-    [SerializeField] HealthBar slider; //***HEALTH BAR***
+    //[SerializeField] HealthBar slider; //***HEALTH BAR***
     [Header("Spawn Time Information")]
     [SerializeField] float spawnTime = 2.0f;
     [SerializeField] int randNumX;
@@ -32,7 +32,7 @@ public class Spawner : MonoBehaviour
         initalizeWaves();
         spawnNPCObjects();
     }
-    void Update() //***Used Chatgpt***
+    void Update() //***Used Chatgpt to add force between each ai so as to not merge together***
     {
         foreach(GameObject ai in returnEnemies())
         {      
@@ -97,7 +97,7 @@ public class Spawner : MonoBehaviour
             randNumX = 15;
             Vector3 spawnPos = new Vector3(randNumX,Random.Range(-3f,3f),0);
             GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
-            newEnemy.transform.Rotate(0,180,0);
+            //newEnemy.transform.Rotate(0,180,0);
             enemies.Add(newEnemy); //adding new enemy clone to list
             newEnemy.GetComponent<enemyAI>().setPlayer(Player);
         }
@@ -105,7 +105,7 @@ public class Spawner : MonoBehaviour
             randNumX = 7;
             Vector3 spawnPos = new Vector3(Random.Range(-11f,11f),randNumX,0);
             GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
-            newEnemy.transform.Rotate(0,180,0);
+            //newEnemy.transform.Rotate(0,180,0);
             enemies.Add(newEnemy); //adding new enemy clone to list
             newEnemy.GetComponent<enemyAI>().setPlayer(Player);
         }
@@ -113,7 +113,7 @@ public class Spawner : MonoBehaviour
             randNumX = -7;
             Vector3 spawnPos = new Vector3(Random.Range(-11f,11f),randNumX,0);
             GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
-            newEnemy.transform.Rotate(0,180,0);
+            //newEnemy.transform.Rotate(0,180,0);
             enemies.Add(newEnemy); //adding new enemy clone to list
             newEnemy.GetComponent<enemyAI>().setPlayer(Player);
         }

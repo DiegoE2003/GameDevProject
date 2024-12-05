@@ -20,6 +20,8 @@ public class NPCinfo : MonoBehaviour
     [SerializeField] HealthBar bar;
     [SerializeField] enemyAI ai;
     [SerializeField] double value = 0.5;
+    [Header("Audio Reference")]
+    [SerializeField] AudioSource audio;
     void Start(){
         currHealth = totalHealth;
     }
@@ -40,6 +42,7 @@ public class NPCinfo : MonoBehaviour
         
         isDead = true;
         //animation.ChangeAnimationStateNPC("Death");
+        audio.Play();
         ai.ChangeState("DeadState");
     }
     private void TakeDamage(int damage){

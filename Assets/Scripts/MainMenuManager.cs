@@ -12,8 +12,11 @@ public class Menu : MonoBehaviour
     public void HowToPlay(){
         SceneManager.LoadScene("Rules");
     }
+    public void Options(){
+        SceneManager.LoadScene("Options");
+    }
     public void QuitGame(){
-        Debug.Log("Quit");
+        //Debug.Log("Quit");
         Application.Quit();
     }
 }

@@ -15,6 +15,11 @@ public class enemyAI : MonoBehaviour
     AIState currentState;
     AIState newState;
     Vector3 currentPlayerPos;
+    [Header("Attack Parameters")]
+    [SerializeField] private float attackRange = 0.2f; // Distance within which the AI attacks the player
+    [SerializeField] GameObject body;
+    int tick;
+    float stateTime;
     void Start(){
         ChangeState("MoveState");
     }
@@ -28,26 +33,45 @@ public class enemyAI : MonoBehaviour
     }
     void Update(){
             AITick();
+            tick++;
+            stateTime += Time.deltaTime;
     }
     void AttackState(){
-        animation.ChangeAnimationStateNPC("Attack");
+        //Debug.Log("attack state");
+        if(tick == 1){
+            animation.ChangeAnimationStateNPC("Attack");
+        }
+        if(stateTime > 3){
+            ChangeState("MoveState");
+        }
     }
     void IdleState(){
+        //Debug.Log("idle state");
         animation.ChangeAnimationStateNPC("Idle");
     }
     void DeadState(){
-        Debug.Log("playing death animaton!");
+        //Debug.Log("playing death animaton!");
         animation.ChangeAnimationStateNPC("Death");
         //return;
     }
     void MoveState(){
-        moveTowardPlayer(currentPlayerPos);
-        //animation.changeAnimationStateNPC("Walk")
+        //Debug.Log("move state");
+        float distanceToPlayer = Vector3.Distance(transform.position, currentPlayerPos);
+        if (distanceToPlayer <= attackRange)
+        {
+            Debug.Log("distnacetoplayer <= attackRange");
+            ChangeState("AttackState");
+        }
+        else{
+            moveTowardPlayer(currentPlayerPos);
+        }
     }
     void AITick(){
         currentState();
     }
     public void ChangeState(string state){
+        tick = 0;
+        stateTime = 0;
         if(string.Equals(state,"DeadState")){
             newState = DeadState;
         }
@@ -70,14 +94,14 @@ public class enemyAI : MonoBehaviour
     public void Move(Vector3 new_movement){
         transform.position += new_movement * npc.getNPCspeed() * Time.deltaTime;
 
-        // Rotate based on the direction of movement in the x-axis ***Chatgpt***
+        // Rotate based on the direction of movement in the x-axis 
         if (new_movement.x > 0) // Moving in +x direction
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0); // Face right
+            body.transform.rotation = Quaternion.Euler(0, 0, 0); // Face right
         }
         else
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0); // Face left
+            body.transform.rotation = Quaternion.Euler(0, 180, 0); // Face left
         }
     }
 }
