@@ -10,6 +10,8 @@ public class Spawner : MonoBehaviour
     [Header("Prefabs Information")]
     [SerializeField] GameObject Player;
     [SerializeField] GameObject npc;
+    [SerializeField] GameObject npc2;
+    [SerializeField] GameObject npc3;
     //[SerializeField] HealthBar slider; //***HEALTH BAR***
     [Header("Spawn Time Information")]
     [SerializeField] float spawnTime = 2.0f;
@@ -47,7 +49,7 @@ public class Spawner : MonoBehaviour
                         Destroy(ai, 3.0f); // Destroy the GameObject directly, with a delay if necessary
                         killCounter++;
                         kc.updateKillCounter(killCounter);
-                        Debug.Log("ai is dead! killCounter: " + killCounter);
+                        //Debug.Log("ai is dead! killCounter: " + killCounter);
                         removeEnemyFromList(ai);
                     }
                     else
@@ -90,14 +92,16 @@ public class Spawner : MonoBehaviour
             randNumX = -15;
             Vector3 spawnPos = new Vector3(randNumX,Random.Range(-3f,3f),0);
             GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
-            enemies.Add(newEnemy); //adding new enemy clone to list
+            GameObject newEnemy2 = Instantiate(npc2,spawnPos, Quaternion.identity);
+            enemies.Add(newEnemy); 
+            enemies.Add(newEnemy2);
             newEnemy.GetComponent<enemyAI>().setPlayer(Player);
+            newEnemy2.GetComponent<enemyAI>().setPlayer(Player);
         }
         if(randomInt == 1){
             randNumX = 15;
             Vector3 spawnPos = new Vector3(randNumX,Random.Range(-3f,3f),0);
             GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
-            //newEnemy.transform.Rotate(0,180,0);
             enemies.Add(newEnemy); //adding new enemy clone to list
             newEnemy.GetComponent<enemyAI>().setPlayer(Player);
         }
@@ -105,15 +109,16 @@ public class Spawner : MonoBehaviour
             randNumX = 7;
             Vector3 spawnPos = new Vector3(Random.Range(-11f,11f),randNumX,0);
             GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
-            //newEnemy.transform.Rotate(0,180,0);
+            GameObject newEnemy3 = Instantiate(npc3,spawnPos, Quaternion.identity);
             enemies.Add(newEnemy); //adding new enemy clone to list
+            enemies.Add(newEnemy3);
             newEnemy.GetComponent<enemyAI>().setPlayer(Player);
+            newEnemy3.GetComponent<enemyAI>().setPlayer(Player);
         }
          if(randomInt == 3){
             randNumX = -7;
             Vector3 spawnPos = new Vector3(Random.Range(-11f,11f),randNumX,0);
             GameObject newEnemy = Instantiate(npc,spawnPos, Quaternion.identity);
-            //newEnemy.transform.Rotate(0,180,0);
             enemies.Add(newEnemy); //adding new enemy clone to list
             newEnemy.GetComponent<enemyAI>().setPlayer(Player);
         }
@@ -142,9 +147,9 @@ public class Spawner : MonoBehaviour
     public void removeEnemyFromList(GameObject currentEnemy){
 
         for(int i = 0; i < enemies.Count; i++){
-            Debug.Log("iterating over enemies list: i #: " + i);
+            //Debug.Log("iterating over enemies list: i #: " + i);
             if(currentEnemy == enemies[i]){
-                Debug.Log("Removing object from list");
+                //Debug.Log("Removing object from list");
                 enemies.RemoveAt(i);
                 break;
             }

@@ -30,10 +30,10 @@ public class NPCinfo : MonoBehaviour
         if(other.CompareTag("Sword")){
             
             if(other.offset.y >= 0.05 || other.offset.y >= 0.04){
-                Debug.Log("Invalid hit");
+                //Debug.Log("Invalid hit");
             }
             else{
-                Debug.Log("Sword hit NPC");
+                //Debug.Log("Sword hit NPC");
                 TakeDamage(50);
             }
         }
@@ -53,7 +53,7 @@ public class NPCinfo : MonoBehaviour
             Die();
         }
         else{
-            Debug.Log("Npc is forced back");
+            //Debug.Log("Npc is forced back");
         }
 
     }

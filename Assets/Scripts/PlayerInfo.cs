@@ -31,12 +31,9 @@ public class PlayerInfo : MonoBehaviour
                 Destroy(gameObject);
                 SceneManager.LoadScene("MainMenu");
             }
-            else if(other.offset.y == -0.06 || other.offset.x == 0.35){
+            else{
                 Debug.Log("taking damage");
                 Health -= 50.0f;
-            }
-            else{
-                Debug.Log("Bruh");
             }
         }
 

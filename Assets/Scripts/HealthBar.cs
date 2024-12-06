@@ -14,10 +14,4 @@ public class HealthBar : MonoBehaviour
         float value = (float)damage; 
         slider.value -= value;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

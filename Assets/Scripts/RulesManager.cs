@@ -9,7 +9,7 @@ public class RulesManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
     public void QuitGame(){
-        Debug.Log("Quit");
+        //Debug.Log("Quit");
         Application.Quit();
     }
 }

@@ -901,6 +901,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6926481191404562377, guid: 6f875b3520210ac4ab365befd9ec2c53, type: 3}
     - target: {fileID: -610904142712495974, guid: 3b807f5baaabe3544837fea8798dc145, type: 3}
+      propertyPath: npc2
+      value: 
+      objectReference: {fileID: 6926481191404562377, guid: 5c5a88515d76d6f4db147ba16d8b8b61, type: 3}
+    - target: {fileID: -610904142712495974, guid: 3b807f5baaabe3544837fea8798dc145, type: 3}
+      propertyPath: npc3
+      value: 
+      objectReference: {fileID: 6926481191404562377, guid: 1003bd4b8f0d4564680425c043466492, type: 3}
+    - target: {fileID: -610904142712495974, guid: 3b807f5baaabe3544837fea8798dc145, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 251463018}

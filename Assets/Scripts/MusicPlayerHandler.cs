@@ -12,11 +12,11 @@ public class MusicPlayerHandler : MonoBehaviour
    public void playMusicOnAwake(Boolean trueOrFalse){
 
         if(trueOrFalse){
-            Debug.Log("Setting play on awake to be true");
+            //Debug.Log("Setting play on awake to be true");
             musicPlayerPrefab.GetComponent<AudioSource>().playOnAwake = true;
         }
         if(!trueOrFalse){
-            Debug.Log("Setting play on awake to be false");
+            //Debug.Log("Setting play on awake to be false");
             musicPlayerPrefab.GetComponent<AudioSource>().playOnAwake = false;
         }
 

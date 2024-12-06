@@ -14,11 +14,11 @@ public class OptionsManager : MonoBehaviour
         musicPlayer.makePrefab();
         
         if(m_Toggle.isOn){  
-            Debug.Log("toggle on");
+            //Debug.Log("toggle on");
             musicPlayer.playMusicOnAwake(true);
         }
         else if(!m_Toggle.isOn){
-            Debug.Log("toggle is not on");
+            //Debug.Log("toggle is not on");
            musicPlayer.playMusicOnAwake(false);
         }
 

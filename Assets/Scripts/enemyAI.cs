@@ -50,8 +50,10 @@ public class enemyAI : MonoBehaviour
         animation.ChangeAnimationStateNPC("Idle");
     }
     void DeadState(){
-        //Debug.Log("playing death animaton!");
-        animation.ChangeAnimationStateNPC("Death");
+        if(tick == 1){
+            Debug.Log("playing death animaton!");
+            animation.ChangeAnimationStateNPC("Death");
+        }
         //return;
     }
     void MoveState(){
@@ -72,7 +74,10 @@ public class enemyAI : MonoBehaviour
     public void ChangeState(string state){
         tick = 0;
         stateTime = 0;
+        Debug.Log(tick);
+        Debug.Log(stateTime);
         if(string.Equals(state,"DeadState")){
+            Debug.Log("Chaning state to death state");
             newState = DeadState;
         }
         if(string.Equals(state,"MoveState")){
@@ -94,7 +99,7 @@ public class enemyAI : MonoBehaviour
     public void Move(Vector3 new_movement){
         transform.position += new_movement * npc.getNPCspeed() * Time.deltaTime;
 
-        // Rotate based on the direction of movement in the x-axis 
+        // Rotate based on the direction of movement in the x-axis ***Chatgpt***
         if (new_movement.x > 0) // Moving in +x direction
         {
             body.transform.rotation = Quaternion.Euler(0, 0, 0); // Face right
